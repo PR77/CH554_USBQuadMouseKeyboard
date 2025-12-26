@@ -148,6 +148,8 @@ uint16_t serial_getByteSerial1Interrupt(uint32_t timeout) {
         }
     }
 
+    serial_disableSerial1Interrupt();
+
     // If receive buffer is not empty
     if (serial_receiveWriteIndex != serial_receiveReadIndex) {
         // Get one byte from buffer and pass it along to the caller
@@ -156,6 +158,8 @@ uint16_t serial_getByteSerial1Interrupt(uint32_t timeout) {
         // Calculate and store new buffer index
         serial_receiveReadIndex = (serial_receiveReadIndex + 1) & SERIAL_1_RX_BUFFER_MASK;
     }
+
+    serial_enableSerial1Interrupt();
     
     return (receivedData);
 }
