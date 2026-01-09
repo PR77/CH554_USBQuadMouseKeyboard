@@ -55,14 +55,14 @@ void serial_initialiseSerial0(uint32_t baudRate, uint8_t alternativePins, uint8_
 inline void serial_disableSerial0Interrupt(void) {
 
     if (ES == 1) {
-        ES = 0;                     // only if already enabled, then disable UART1 interrupt
+        ES = 0;                     // only if already enabled, then disable UART0 interrupt
     }
 }
 
 inline void serial_enableSerial0Interrupt(void) {
 
     if (ES == 0) {
-        ES = 1;                     // only if already disabled, then emable UART1 interrupt
+        ES = 1;                     // only if already disabled, then emable UART0 interrupt
     }
 }
 
