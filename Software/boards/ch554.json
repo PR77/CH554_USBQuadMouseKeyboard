@@ -11,10 +11,7 @@
   "upload": {
     "maximum_ram_size": 256,
     "maximum_size": 14336,
-    "protocol": "custom",
-    "protocols": [
-      "custom" , "ch55x"
-    ]
+    "protocol": "ch55x"
   },
   "name": "Generic CH554",
   "url": "https://www.wch-ic.com",
