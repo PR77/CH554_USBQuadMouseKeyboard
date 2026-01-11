@@ -87,8 +87,8 @@ extern __xdata _DevOnHubPort DevOnHubPort[HUB_MAX_PORTS]; // assumption: no more
 extern uint8_t Set_Port;
 #endif
 
-extern __xdata __at (0x0000) uint8_t TxBuffer[MAX_PACKET_SIZE];
-extern __xdata __at (0x0040) uint8_t RxBuffer[MAX_PACKET_SIZE];
+extern __xdata __at (0x0380) uint8_t TxBuffer[MAX_PACKET_SIZE];
+extern __xdata __at (0x03C0) uint8_t RxBuffer[MAX_PACKET_SIZE];
 
 extern __xdata uint8_t  Com_Buffer[];
 extern __bit  FoundNewDev;
