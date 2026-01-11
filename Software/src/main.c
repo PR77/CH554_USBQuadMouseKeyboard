@@ -41,8 +41,8 @@ __code uint8_t SetupGetHIDDevReport[] = { 0x81, USB_GET_DESCRIPTOR, 0x00, USB_DE
 __code uint8_t SetupGetHubDescr[] = { HUB_GET_HUB_DESCRIPTOR, HUB_GET_DESCRIPTOR, 0x00, USB_DESCR_TYP_HUB, 0x00, 0x00, sizeof(USB_HUB_DESCR), 0x00 };
 
 __xdata uint8_t UsbDevEndp0Size;
-__xdata __at (0x0380) uint8_t TxBuffer[MAX_PACKET_SIZE];  // OUT, must even address
-__xdata __at (0x03C0) uint8_t RxBuffer[MAX_PACKET_SIZE];  // IN, must even address
+__xdata __at (0x0380) uint8_t TxBuffer[MAX_PACKET_SIZE];  // OUT, must even address at the end of XRAM, therefore XRAM size is made smaller in BOARD definition.
+__xdata __at (0x03C0) uint8_t RxBuffer[MAX_PACKET_SIZE];  // IN, must even address at the end of XRAM, therefore XRAM size is made smaller in BOARD definition.
 
 uint8_t Set_Port = 0;
 __xdata _RootHubDev ThisUsbDev;                             // ROOT
