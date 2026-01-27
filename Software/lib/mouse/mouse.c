@@ -13,14 +13,15 @@
 #include <stdlib.h>
 #include "ch554.h"
 #include "quadrature.h"
-#include "buttons.h"
 #include "mouse.h"
+#include "mouse_cfg.h"
+
+SBIT(LEFT_BUTTON, LEFT_BUTTON_PORT, LEFT_BUTTON_PIN);
+SBIT(RIGHT_BUTTON, RIGHT_BUTTON_PORT, RIGHT_BUTTON_PIN);
 
 static __xdata devTypeMousePayload_s previousRawMouseReport;
 static __xdata char buttonString[4];
 
-void mouse_initialise(void) {
-    buttons_initialise(invertButtons);
     quadrature_initialise(encodingRate8000Hz);
 
     memset(&previousRawMouseReport, 0, sizeof(devTypeMousePayload_s));
@@ -29,6 +30,24 @@ void mouse_initialise(void) {
 
 void mouse_deinitialise(void) {
     quadrature_deinitialise();
+}
+
+void mouse_leftButton(uint8_t buttonState) {
+
+    if (buttonState ^ (uint8_t)invertButtonLogic) {
+        LEFT_BUTTON = 1;
+    } else {
+        LEFT_BUTTON = 0;
+    }
+}
+
+void mouse_rightButton(uint8_t buttonState) {
+
+    if (buttonState ^ (uint8_t)invertButtonLogic) {
+        RIGHT_BUTTON = 1;
+    } else {
+        RIGHT_BUTTON = 0;
+    }
 }
 
 uint8_t mouse_translateMovement(devTypeMousePayload_s *rawMouseReport) {
@@ -57,10 +76,10 @@ uint8_t mouse_translateMovement(devTypeMousePayload_s *rawMouseReport) {
     }
 
     if (rawMouseReport->buttonState & MOUSE_BUTTON_LEFT) {
-        buttons_leftButton(1);
+        mouse_leftButton(1);
 
     } else {
-        buttons_leftButton(0);
+        mouse_leftButton(0);
     }
 
     if (rawMouseReport->buttonState & MOUSE_BUTTON_MIDDLE) {
@@ -70,9 +89,9 @@ uint8_t mouse_translateMovement(devTypeMousePayload_s *rawMouseReport) {
     }    
 
     if (rawMouseReport->buttonState & MOUSE_BUTTON_RIGHT) {
-        buttons_rightButton(1);
+        mouse_rightButton(1);
     } else {
-        buttons_rightButton(0);
+        mouse_rightButton(0);
     }    
 
     return (movementUpdate);

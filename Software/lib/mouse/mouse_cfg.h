@@ -1,14 +1,14 @@
 /********************************** (C) COPYRIGHT *******************************
-* File Name     : BUTTONS_CFG.H
+* File Name     : MOUSE_CFG.H
 * Author        : Paul Raspa (PR77)
 * License       : MIT
 * Version       : V1.0
-* Date          : 2025/04/23
+* Date          : 2026/01/27
 * Description   : CH554 Mouse Buttons
 *******************************************************************************/
 
-#ifndef __CH554_BUTTONS_CFG_H__
-#define __CH554_BUTTONS_CFG_H__
+#ifndef __CH554_MOUSE_CFG_H__
+#define __CH554_MOUSE_CFG_H__
 
 #include <stdint.h>
 #include "ch554.h"
@@ -45,4 +45,4 @@
 #define RIGHT_BUTTON_PIN        2
 #endif
 
-#endif // __CH554_BUTTONS_CFG_H__
+#endif // __CH554_MOUSE_CFG_H__

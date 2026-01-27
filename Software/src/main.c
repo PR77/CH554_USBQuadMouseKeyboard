@@ -16,7 +16,6 @@
 #include "quadrature.h"
 #include "keyboard.h"
 #include "mouse.h"
-#include "buttons.h"
 #include "buzzer.h"
 #include "i2c.h"
 #include "ssd1306.h"
@@ -184,7 +183,7 @@ void main(void) {
 
                     if (!mouseInitialised) {
                         // Setup quadrature encoder and mouse button emulation
-                        mouse_initialise();
+                        mouse_initialise(invertButtons);
                         buzzer_pulseBuzzer(BUZZER_ACTIVE_DURATION_MS);
                         mouseInitialised = 1;
                     }

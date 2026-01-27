@@ -29,8 +29,15 @@ typedef struct {
     int8_t wheelMovement;
 } devTypeMousePayload_s;
 
-void mouse_initialise(void);
+typedef enum {
+    dontInvertButtons = 0,
+    invertButtons
+} buttonsInvert_e;
+
+void mouse_initialise(buttonsInvert_e invertState);
 void mouse_deinitialise(void);
+void mouse_leftButton(uint8_t buttonState);
+void mouse_rightButton(uint8_t buttonState);
 uint8_t mouse_translateMovement(devTypeMousePayload_s *rawMouseReport);
 char * mouse_getButtonString(devTypeMousePayload_s *rawMouseReport);
 
