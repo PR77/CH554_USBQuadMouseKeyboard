@@ -21,6 +21,25 @@ SBIT(RIGHT_BUTTON, RIGHT_BUTTON_PORT, RIGHT_BUTTON_PIN);
 
 static __xdata devTypeMousePayload_s previousRawMouseReport;
 static __xdata char buttonString[4];
+static __xdata buttonsInvert_e invertButtonLogic = dontInvertButtons;
+
+void mouse_initialise(buttonsInvert_e invertState) {
+
+    LEFT_BUTTON_MOD_OC = LEFT_BUTTON_MOD_OC & ~(1 << LEFT_BUTTON_PIN);
+    LEFT_BUTTON_DIR_PU = LEFT_BUTTON_DIR_PU | (1 << LEFT_BUTTON_PIN);
+
+    RIGHT_BUTTON_MOD_OC = RIGHT_BUTTON_MOD_OC & ~(1 << RIGHT_BUTTON_PIN);
+    RIGHT_BUTTON_DIR_PU = RIGHT_BUTTON_DIR_PU | (1 << RIGHT_BUTTON_PIN);
+
+    invertButtonLogic = invertState;
+
+    if (invertButtonLogic == invertButtons) {
+        LEFT_BUTTON = 1;
+        RIGHT_BUTTON = 1;
+    } else {
+        LEFT_BUTTON = 0;
+        RIGHT_BUTTON = 0;
+    }
 
     quadrature_initialise(encodingRate8000Hz);
 
