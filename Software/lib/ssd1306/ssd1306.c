@@ -55,7 +55,7 @@ static const uint8_t OLED_INIT_CMD[] = {
 #endif  
     OLED_CHARGEPUMP, 0x14,          // enable charge pump
     OLED_DISPLAY_ON,                // switch on OLED
-    OLED_XFLIP, OLED_YFLIP          // flip the screen
+    OLED_XFLIP_OFF, OLED_YFLIP_OFF  // flip the screen
 };
 
 // HEX encoding table
@@ -85,12 +85,42 @@ void ssd1306_verticalShift(uint8_t yPosition) {
     i2c_stopCommunication();
 }
 
+// OLED draw BMP image
+void ssd1306_drawBmp(uint8_t xPosition, uint8_t yPosition, uint8_t xSize, uint8_t ySize, const uint8_t* bmpData) {
+
+    uint8_t startPage = yPosition >> 3;                                 // each pages is 8 pixels "high"
+    uint8_t numberOfPages = ySize >> 3;
+
+    for (uint8_t pageLoop = 0; pageLoop < numberOfPages; pageLoop++) {
+        
+        // Set page number based on loop itteration and starting x position
+        i2c_startCommunication(OLED_ADDR);
+        i2c_writeByte(OLED_CMD_MODE);
+        i2c_writeByte(OLED_PAGE | ((startPage + pageLoop) & 0x07));
+        i2c_writeByte(OLED_COLUMN_LOW | (xPosition & 0x0F));            // set low nibble of start column
+        i2c_writeByte(OLED_COLUMN_HIGH | (xPosition >> 4));             // set high nibble of start column
+        i2c_stopCommunication();
+
+        // Write bitmap data
+        i2c_startCommunication(OLED_ADDR);
+        i2c_writeByte(OLED_DAT_MODE);    
+
+        for (uint8_t i = 0; i < xSize; i++) {
+            i2c_writeByte(*bmpData++);
+        }
+     
+        i2c_stopCommunication();
+    }
+}
+
 // OLED print a character
 void ssd1306_printCharacter(char character) {
     uint16_t offset = 0;
 
     if (character >= 32) {
         offset = character - 32;
+    } else {
+        return;
     }
 
     offset += offset << 2;                  // -> offset = (ch - 32) * 5

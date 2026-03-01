@@ -43,6 +43,7 @@
 
 void ssd1306_initialise(void);
 void ssd1306_verticalShift(uint8_t yPosition);
+void ssd1306_drawBmp(uint8_t xPosition, uint8_t yPosition, uint8_t xSize, uint8_t ySize, const uint8_t* bmpData);
 void ssd1306_printCharacter(char character);
 void ssd1306_printString(char* string);
 void ssd1306_printHexByte(uint8_t value);
