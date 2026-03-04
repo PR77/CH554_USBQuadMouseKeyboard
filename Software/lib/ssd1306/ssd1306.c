@@ -54,6 +54,9 @@ static const uint8_t OLED_INIT_CMD[] = {
     OLED_COMPINS, 0x02,             // set COM pins hardware configuration to sequential
 #endif  
     OLED_CHARGEPUMP, 0x14,          // enable charge pump
+    OLED_CONTRAST, 0x4F,            // set contrast to middle value
+    OLED_VCOMH_LEVEL, 0x40,         // VCOMH setting
+    OLED_PRE_CHARGE, 0xF1,          // pre-charge period
     OLED_DISPLAY_ON,                // switch on OLED
     OLED_XFLIP_OFF, OLED_YFLIP_OFF  // flip the screen
 };

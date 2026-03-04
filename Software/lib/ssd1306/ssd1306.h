@@ -38,6 +38,8 @@
 #define OLED_YFLIP_OFF    0xC0    // don't flip display vertically
 #define OLED_YFLIP        0xC8    // flip display vertically
 #define OLED_OFFSET       0xD3    // set display offset (y-scroll: following byte)
+#define OLED_VCOMH_LEVEL  0xD8    // set VCOMH
+#define OLED_PRE_CHARGE   0xD9    // set pre-charge period
 #define OLED_COMPINS      0xDA    // set COM pin config (following byte)
 
 
