@@ -30,6 +30,29 @@ uint16_t serial_getCharacter(uint32_t timeout) {
     return (CONSOLE_PORT_GETCHR(timeout));
 }
 
+void serial_printStringPadded(char *string, uint8_t stringPaddingSize) {
+    
+    uint8_t stringIndex = 0;
+
+    if (!string) {
+        return;
+    }
+
+    while (string[stringIndex] != '\0') {
+        // Repeat until string terminator reached printing each character
+        // on the console.
+        CONSOLE_PORT_PUTCHR(string[stringIndex]);
+        stringIndex++;
+    }
+
+    while (stringIndex < stringPaddingSize) {
+        // Now if there are still character to print but the padding number
+        // has been reached, just print 'SPACE' characters.
+        CONSOLE_PORT_PUTCHR(' ');
+        stringIndex++;
+    }
+}
+
 void serial_printString(char* string) {
 
     if (!string) {

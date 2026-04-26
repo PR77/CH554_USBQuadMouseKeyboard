@@ -17,6 +17,7 @@
 
 void serial_printCharacter(char character);
 uint16_t serial_getCharacter(uint32_t timeout);
+void serial_printStringPadded(char *string, uint8_t stringPaddingSize);
 void serial_printString(char* string);
 void serial_printHexByte(uint8_t value);
 void serial_printHexWord(uint16_t value);
