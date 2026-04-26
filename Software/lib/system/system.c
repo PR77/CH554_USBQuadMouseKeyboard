@@ -177,3 +177,16 @@ inline void system_WDTModeSelect(uint8_t mode) {
 inline void system_WDTFeed(uint8_t timerTime) {
     WDOG_COUNT = timerTime;         // Watchdog counter assignment
 }
+
+/*******************************************************************************
+* Function Name  : system_coldReboot(void)
+* Description    : CH554 perform cold reboot via bSW_RESET
+* Input          : None
+* Output         : None
+* Return         : None
+*******************************************************************************/
+inline void system_coldReboot(void) {
+    SAFE_MOD = 0x55;
+    SAFE_MOD = 0xAA;
+    GLOBAL_CFG |= bSW_RESET;
+}

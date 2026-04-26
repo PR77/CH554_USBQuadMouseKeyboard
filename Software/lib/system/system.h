@@ -25,5 +25,6 @@ void system_mDelayuS(uint16_t n);
 void system_mDelaymS(uint16_t n);
 inline void system_WDTModeSelect(uint8_t mode);
 inline void system_WDTFeed(uint8_t timerTime);
+inline void system_coldReboot(void);
 
 #endif // __CH554_SYSTEM_H__
