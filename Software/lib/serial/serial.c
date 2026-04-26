@@ -9,6 +9,8 @@
 
 #include <stdint.h>
 #include <compiler.h>
+#include <string.h>
+#include <stdlib.h>
 #include "ch554.h"
 #include "serial_0.h"
 #include "serial_1.h"
@@ -34,17 +36,16 @@ void serial_printStringPadded(char *string, uint8_t stringPaddingSize) {
     
     uint8_t stringIndex = 0;
 
-    if (!string) {
-        return;
+    if (string != NULL) {
+        while (string[stringIndex] != '\0') {
+            // Repeat until string terminator reached printing each character
+            // on the console.
+            CONSOLE_PORT_PUTCHR(string[stringIndex]);
+            stringIndex++;
+        }
     }
 
-    while (string[stringIndex] != '\0') {
-        // Repeat until string terminator reached printing each character
-        // on the console.
-        CONSOLE_PORT_PUTCHR(string[stringIndex]);
-        stringIndex++;
-    }
-
+    // If string == NULL still do padding to ensure user interface consistency.
     while (stringIndex < stringPaddingSize) {
         // Now if there are still character to print but the padding number
         // has been reached, just print 'SPACE' characters.
@@ -55,7 +56,7 @@ void serial_printStringPadded(char *string, uint8_t stringPaddingSize) {
 
 void serial_printString(char* string) {
 
-    if (!string) {
+    if (string == NULL) {
         return;
     }
     
