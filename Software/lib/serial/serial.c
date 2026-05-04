@@ -8,6 +8,7 @@
 *******************************************************************************/
 
 #include <stdint.h>
+#include <stdbool.h>
 #include <compiler.h>
 #include <string.h>
 #include <stdlib.h>
@@ -51,6 +52,38 @@ void serial_printStringPadded(char *string, uint8_t stringPaddingSize) {
         // has been reached, just print 'SPACE' characters.
         CONSOLE_PORT_PUTCHR(' ');
         stringIndex++;
+    }
+}
+
+void serial_printStringTitle(char *string, uint8_t totalLineLength, char paddingCharacter, bool addNewLine) {
+
+    uint8_t numberOfPadCharacters = 0;
+    uint8_t stringLength = strlen(string);
+    
+    if (string != NULL) {
+        if (stringLength < totalLineLength) {
+            // Determine number of needed padding characters. If string is NULL, then
+            // fill whole line with the padding character.
+            numberOfPadCharacters = totalLineLength - stringLength - 1;
+        }
+        
+        while (*string) {
+            // Repeat until string terminator reached printing each character
+            // on the console.
+            CONSOLE_PORT_PUTCHR(*string++);
+        }
+        
+        CONSOLE_PORT_PUTCHR(' ');
+    } else {
+        numberOfPadCharacters = totalLineLength;
+    }
+    
+    for (uint8_t i = 0; i < numberOfPadCharacters; i++) {
+        CONSOLE_PORT_PUTCHR(paddingCharacter);
+    }
+
+    if (addNewLine) {
+        CONSOLE_PORT_PUTCHR('\n'); 
     }
 }
 
