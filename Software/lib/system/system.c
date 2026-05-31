@@ -17,6 +17,8 @@
 #include "ch554.h"
 #include "system.h"
 
+static __idata uint8_t lastGlobalInterruptState;
+
 /*******************************************************************************
 * Function Name  : system_CfgFsys( )
 * Description    : CH554 clock selection and configuration function.
@@ -48,6 +50,11 @@ void system_CfgFsys(void)  {
     SAFE_MOD = 0x00;
 }
 
+inline void system_restoreGlobalInterupts(void) {
+
+    EA = lastGlobalInterruptState;
+}
+
 inline void system_enableGlobalInterupts(void) {
 
     if (EA == 0) {
@@ -57,6 +64,8 @@ inline void system_enableGlobalInterupts(void) {
 
 inline void system_disableGlobalInterupts(void) {
 
+    lastGlobalInterruptState = EA;
+    
     if (EA == 1) {
         EA = 0;                     // only if already enabled, then disable global interrupts
     }

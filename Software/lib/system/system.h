@@ -19,6 +19,7 @@
 #include "ch554.h"
 
 void system_CfgFsys(void);
+inline void system_restoreGlobalInterupts(void);
 inline void system_enableGlobalInterupts(void);
 inline void system_disableGlobalInterupts(void);
 void system_mDelayuS(uint16_t n);
